@@ -16,9 +16,9 @@ struct GaussFilter : public sc_module {
   sc_fifo<unsigned char> i_r;
   sc_fifo<unsigned char> i_g;
   sc_fifo<unsigned char> i_b;
-  sc_fifo<int> o_result_r;
-  sc_fifo<int> o_result_g;
-  sc_fifo<int> o_result_b;
+  sc_fifo<unsigned char> o_result_r;
+  sc_fifo<unsigned char> o_result_g;
+  sc_fifo<unsigned char> o_result_b;
 
   SC_HAS_PROCESS(GaussFilter);
 
@@ -83,9 +83,9 @@ struct GaussFilter : public sc_module {
         // cout << "READ" << endl;
         switch (addr) {
           case GAU_FILTER_RESULT_ADDR:
-            buffer.uc[0] = (char)(o_result_r.read());
-            buffer.uc[1] = (char)(o_result_g.read());
-            buffer.uc[2] = (char)(o_result_b.read());
+            buffer.uc[0] = o_result_r.read();
+            buffer.uc[1] = o_result_g.read();
+            buffer.uc[2] = o_result_b.read();
             buffer.uc[3] = 0;
             break;
           default:
